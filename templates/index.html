@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Potability Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            color: #333;
+            text-align: center;
+            padding: 40px;
+        }
+        h1 {
+            color: #2C3E50;
+        }
+        p.note {
+            font-size: 15px;
+            color: #1a5276;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        form {
+            background-color: #ffffffd9;
+            border-radius: 15px;
+            display: inline-block;
+            text-align: left;
+            padding: 25px 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 320px;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-top: 12px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2e86c1;
+        }
+        .side-btn {
+            background-color: #27ae60;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .side-btn:hover {
+            background-color: #1e8449;
+        }
+        table {
+            margin: 40px auto;
+            border-collapse: collapse;
+            width: 90%;
+            background-color: #ffffffd9;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #2C3E50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>💧 Water Potability Prediction</h1>
+    <p class="note">For most accurate prediction, please enter all values up to <strong>5 decimal places</strong> (e.g., 7.12345).</p>
+
+    <div class="container">
+        <!-- Left Button -->
+        <div>
+            <button class="side-btn" onclick="fillTest1()">Test 1</button>
+        </div>
+
+        <!-- Form -->
+        <form id="predictionForm" action="/predict" method="post">
+            <label>pH:</label>
+            <input type="number" step="any" name="ph" required>
+
+            <label>Hardness:</label>
+            <input type="number" step="any" name="Hardness" required>
+
+            <label>Solids:</label>
+            <input type="number" step="any" name="Solids" required>
+
+            <label>Chloramines:</label>
+            <input type="number" step="any" name="Chloramines" required>
+
+            <label>Sulfate:</label>
+            <input type="number" step="any" name="Sulfate" required>
+
+            <label>Conductivity:</label>
+            <input type="number" step="any" name="Conductivity" required>
+
+            <label>Organic Carbon:</label>
+            <input type="number" step="any" name="Organic_carbon" required>
+
+            <label>Trihalomethanes:</label>
+            <input type="number" step="any" name="Trihalomethanes" required>
+
+            <label>Turbidity:</label>
+            <input type="number" step="any" name="Turbidity" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        <!-- Right Button -->
+        <div>
+            <button class="side-btn" onclick="fillTest2()">Test 2</button>
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Test 1 Value</th>
+            <th>Test 2 Value</th>
+        </tr>
+        <tr><td>pH</td><td>9.419510</td><td>3.716080</td></tr>
+        <tr><td>Hardness</td><td>175.762646</td><td>129.422921</td></tr>
+        <tr><td>Solids</td><td>33155.578218</td><td>18630.057858</td></tr>
+        <tr><td>Chloramines</td><td>7.350233</td><td>6.635246</td></tr>
+        <tr><td>Sulfate</td><td>333.775777</td><td>333.775777</td></tr>
+        <tr><td>Conductivity</td><td>432.044783</td><td>592.885359</td></tr>
+        <tr><td>Organic Carbon</td><td>11.039070</td><td>15.180013</td></tr>
+        <tr><td>Trihalomethanes</td><td>69.845400</td><td>56.329076</td></tr>
+        <tr><td>Turbidity</td><td>3.298875</td><td>4.500656</td></tr>
+        <tr>
+            <th>Expected Output</th>
+            <td><b>Potable</b></td>
+            <td><b>Not Potable</b></td>
+        </tr>
+    </table>
+
+    <script>
+        function fillTest1() {
+            const values = [9.419510, 175.762646, 33155.578218, 7.350233, 333.775777, 432.044783, 11.039070, 69.845400, 3.298875];
+            fillForm(values);
+        }
+
+        function fillTest2() {
+            const values = [3.716080, 129.422921, 18630.057858, 6.635246, 333.775777, 592.885359, 15.180013, 56.329076, 4.500656];
+            fillForm(values);
+        }
+
+        function fillForm(values) {
+            const inputs = document.querySelectorAll('#predictionForm input');
+            inputs.forEach((input, index) => {
+                input.value = values[index];
+            });
+        }
+    </script>
+</body>
+</html>

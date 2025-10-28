@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            text-align: center;
+            padding: 70px;
+            color: #aebcca;
+        }
+        .result-box {
+            background: #ffffffd9;
+            display: inline-block;
+            padding: 40px 60px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        h1 {
+            margin-bottom: 15px;
+        }
+        h2 {
+            color: #27ae60;
+        }
+        .not-safe {
+            color: #c0392b;
+        }
+        a {
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 25px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+        }
+        a:hover {
+            background-color: #2e86c1;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h1>💧 Water Potability Result</h1>
+
+        {% if prediction == "Safe for Drinking" %}
+            <h2>{{ prediction }}</h2>
+        {% else %}
+            <h2 class="not-safe">{{ prediction }}</h2>
+        {% endif %}
+
+        <a href="/">🔙 Back to Home</a>
+    </div>
+</body>
+</html>
